@@ -31,5 +31,5 @@ int main() {
     SoNhiPhan boLietKe; // Khởi tạo đối tượng liệt kê
     boLietKe.inSoNhiPhan(n); // In tất cả số nhị phân
     
-    return 0; // Kết thúc chương trình
+    return 0; 
 }
