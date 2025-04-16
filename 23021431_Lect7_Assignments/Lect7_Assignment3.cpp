@@ -4,9 +4,9 @@ using namespace std;
 class UocChung {
 private:
     int TIM_UCLN(int a, int b) { // Tìm ước chung lớn nhất bằng đệ quy
-        a = abs(a); b = abs(b); // Lấy giá trị tuyệt đối của a và b
-        if (b == 0) return a; // Nếu b bằng 0, trả về a
-        return TIM_UCLN(b, a % b); // Gọi đệ quy với b và a % b
+        a = a < 0 ? -a : a; // Lấy giá trị tuyệt đối của a
+        b = b < 0 ? -b : b; // Lấy giá trị tuyệt đối của b
+        return b == 0 ? a : TIM_UCLN(b, a % b); // Nếu b bằng 0 trả về a, ngược lại gọi đệ quy
     }
     
 public:
@@ -20,8 +20,7 @@ int main() {
     cin >> x >> y; // Nhập hai số từ bàn phím
     
     UocChung boTinhToan; // Khởi tạo đối tượng tính toán
-    int ketQua = boTinhToan.tinhUocChung(x, y); // Tính UCLN
-    cout << ketQua << endl; // In kết quả
+    cout << boTinhToan.tinhUocChung(x, y) << endl; // In kết quả UCLN
     
     return 0; // Kết thúc chương trình
 }
