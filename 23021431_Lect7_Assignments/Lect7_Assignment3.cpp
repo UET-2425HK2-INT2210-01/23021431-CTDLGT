@@ -22,5 +22,5 @@ int main() {
     UocChung boTinhToan; // Khởi tạo đối tượng tính toán
     cout << boTinhToan.tinhUocChung(x, y) << endl; // In kết quả UCLN
     
-    return 0; // Kết thúc chương trình
+    return 0; 
 }
