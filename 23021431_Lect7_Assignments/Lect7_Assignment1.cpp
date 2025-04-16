@@ -63,5 +63,5 @@ int main() {
     }
     tepRa.close(); // Đóng file đầu ra
     
-    return 0; // Kết thúc chương trình
+    return 0; 
 }
