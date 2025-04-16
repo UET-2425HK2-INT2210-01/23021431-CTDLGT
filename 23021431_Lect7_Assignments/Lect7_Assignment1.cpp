@@ -1,67 +1,56 @@
 #include <iostream>
-#include <fstream>
-#include <vector>
 using namespace std;
 
 class SapXep {
 private:
-    void GHEP_MANG(vector<double>& mang, int trai, int giua, int phai) { // Gộp hai mảng con đã sắp xếp
-        vector<double> tamTrai(mang.begin() + trai, mang.begin() + giua + 1); // Tạo mảng tạm cho nửa trái
-        vector<double> tamPhai(mang.begin() + giua + 1, mang.begin() + phai + 1); // Tạo mảng tạm cho nửa phải
-        
-        int i = 0, j = 0, k = trai; // Khởi tạo chỉ số cho mảng tạm và mảng chính
-        while (i < tamTrai.size() && j < tamPhai.size()) { // So sánh và gộp
-            if (tamTrai[i] <= tamPhai[j]) { // Nếu phần tử trái nhỏ hơn hoặc bằng
-                mang[k++] = tamTrai[i++]; // Gán phần tử trái vào mảng chính
-            } else { // Nếu phần tử phải nhỏ hơn
-                mang[k++] = tamPhai[j++]; // Gán phần tử phải vào mảng chính
-            }
-        }
-        
-        while (i < tamTrai.size()) { // Gộp các phần tử còn lại của mảng trái
-            mang[k++] = tamTrai[i++];
-        }
-        while (j < tamPhai.size()) { // Gộp các phần tử còn lại của mảng phải
-            mang[k++] = tamPhai[j++];
-        }
-    }
-    
-    void SAP_XEP_GHEP(vector<double>& mang, int trai, int phai) { // Sắp xếp mảng bằng merge sort
+    void QUICK_SORT(double mang[], int trai, int phai) { // Sắp xếp mảng bằng quicksort
         if (trai < phai) { // Nếu mảng có hơn một phần tử
-            int giua = trai + (phai - trai) / 2; // Tính chỉ số giữa
-            SAP_XEP_GHEP(mang, trai, giua); // Sắp xếp nửa trái
-            SAP_XEP_GHEP(mang, giua + 1, phai); // Sắp xếp nửa phải
-            GHEP_MANG(mang, trai, giua, phai); // Gộp hai nửa
+            int giua = trai + (phai - trai) / 2; // Chọn pivot là phần tử giữa
+            double pivot = mang[giua]; // Lưu giá trị pivot
+            int i = trai, j = phai; // Khởi tạo hai chỉ số trái và phải
+            
+            while (i <= j) { // Lặp cho đến khi hai chỉ số gặp nhau
+                while (mang[i] < pivot) i++; // Tìm phần tử lớn hơn pivot bên trái
+                while (mang[j] > pivot) j--; // Tìm phần tử nhỏ hơn pivot bên phải
+                if (i <= j) { // Nếu hai chỉ số chưa vượt qua nhau
+                    double tam = mang[i]; // Hoán đổi hai phần tử
+                    mang[i] = mang[j];
+                    mang[j] = tam;
+                    i++; j--; // Di chuyển chỉ số
+                }
+            }
+            
+            QUICK_SORT(mang, trai, j); // Sắp xếp mảng con trái
+            QUICK_SORT(mang, i, phai); // Sắp xếp mảng con phải
         }
     }
     
 public:
-    void sapXepSoThuc(vector<double>& mang) { // Sắp xếp mảng số thực
-        if (!mang.empty()) { // Kiểm tra mảng không rỗng
-            SAP_XEP_GHEP(mang, 0, mang.size() - 1); // Gọi hàm merge sort
+    void sapXepSoThuc(double mang[], int n) { // Sắp xếp mảng số thực
+        if (n > 0) { // Kiểm tra mảng không rỗng
+            QUICK_SORT(mang, 0, n - 1); // Gọi hàm quicksort
         }
     }
 };
 
 int main() {
-    ifstream tepVao("numbers.txt"); // Mở file đầu vào
-    vector<double> danhSachSo; // Danh sách lưu số thực
-    double so; // Biến tạm để đọc số
+    int n; // Số lượng số thực
+    cout << "Nhap so luong so: "; // Yêu cầu nhập số lượng
+    cin >> n; // Đọc số lượng số
     
-    while (tepVao >> so) { // Đọc từng số từ file
-        danhSachSo.push_back(so); // Thêm số vào danh sách
+    double danhSachSo[1000]; // Mảng lưu số thực (giới hạn tối đa 1000)
+    for (int i = 0; i < n; ++i) { // Duyệt qua các số
+        cin >> danhSachSo[i]; // Nhập số thực
     }
-    tepVao.close(); // Đóng file đầu vào
     
     SapXep boSapXep; // Khởi tạo đối tượng sắp xếp
-    boSapXep.sapXepSoThuc(danhSachSo); // Sắp xếp danh sách số
+    boSapXep.sapXepSoThuc(danhSachSo, n); // Sắp xếp mảng số
     
-    ofstream tepRa("numbers.sorted"); // Mở file đầu ra
-    for (size_t i = 0; i < danhSachSo.size(); ++i) { // Duyệt qua danh sách số
-        tepRa << danhSachSo[i]; // Ghi số vào file
-        if (i < danhSachSo.size() - 1) tepRa << " "; // Thêm khoảng trắng nếu không phải số cuối
+    for (int i = 0; i < n; ++i) { // Duyệt qua mảng đã sắp xếp
+        cout << danhSachSo[i]; // In số
+        if (i < n - 1) cout << " "; // Thêm khoảng trắng nếu không phải số cuối
     }
-    tepRa.close(); // Đóng file đầu ra
+    cout << endl; // Xuống dòng
     
     return 0; 
 }
