@@ -1,26 +1,26 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
 class SoNhiPhan {
 private:
-    void LIET_KE_NHI_PHAN(string chuoi, int n, int viTri) { // Liệt kê số nhị phân độ dài n
+    void LIET_KE_NHI_PHAN(char mang[], int n, int viTri) { // Liệt kê số nhị phân độ dài n
         if (viTri == n) { // Nếu đã xây dựng đủ độ dài
-            cout << chuoi << endl; // In chuỗi nhị phân
+            for (int i = 0; i < n; ++i) cout << mang[i]; // In chuỗi nhị phân
+            cout << endl; // Xuống dòng
             return;
         }
         
-        chuoi[viTri] = '0'; // Gán bit 0 tại vị trí hiện tại
-        LIET_KE_NHI_PHAN(chuoi, n, viTri + 1); // Gọi đệ quy cho bit tiếp theo
+        mang[viTri] = '0'; // Gán bit 0 tại vị trí hiện tại
+        LIET_KE_NHI_PHAN(mang, n, viTri + 1); // Gọi đệ quy cho bit tiếp theo
         
-        chuoi[viTri] = '1'; // Gán bit 1 tại vị trí hiện tại
-        LIET_KE_NHI_PHAN(chuoi, n, viTri + 1); // Gọi đệ quy cho bit tiếp theo
+        mang[viTri] = '1'; // Gán bit 1 tại vị trí hiện tại
+        LIET_KE_NHI_PHAN(mang, n, viTri + 1); // Gọi đệ quy cho bit tiếp theo
     }
     
 public:
     void inSoNhiPhan(int n) { // In tất cả số nhị phân độ dài n
-        string chuoi(n, '0'); // Khởi tạo chuỗi với n ký tự '0'
-        LIET_KE_NHI_PHAN(chuoi, n, 0); // Bắt đầu liệt kê từ vị trí 0
+        char mang[20]; // Mảng lưu chuỗi nhị phân (giới hạn tối đa 20)
+        LIET_KE_NHI_PHAN(mang, n, 0); // Bắt đầu liệt kê từ vị trí 0
     }
 };
 
