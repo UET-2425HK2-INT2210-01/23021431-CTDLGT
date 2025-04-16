@@ -84,7 +84,7 @@ public:
 
     void inTienTu() { // In thứ tự duyệt tiền tự
         duyetTienTu(goc); // Gọi hàm duyệt từ gốc
-        cout << endl; // Xuống dòng
+        cout << endl; 
     }
 
     void duyetHauTu(NutCay* nut) { // Duyệt cây theo thứ tự hậu tự
@@ -162,5 +162,5 @@ int main() {
     cayCuaToi.inHauTu(); // In thứ tự hậu tự
     cayCuaToi.inTrungTu(); // In thứ tự trung tự
     
-    return 0; // Kết thúc chương trình
+    return 0; 
 }
