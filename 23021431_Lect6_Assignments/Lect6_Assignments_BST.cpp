@@ -82,7 +82,7 @@ public:
     
     void inTrungTu() { // In cây theo thứ tự trung tự
         DUYET_TRUNG_TU(gocCay); // Gọi hàm duyệt từ gốc
-        cout << endl; // Xuống dòng sau khi in
+        cout << endl; 
     }
 };
 
@@ -119,5 +119,5 @@ int main() {
     cout << "Cay sau khi xoa 6, 13, 35: "; // In tiêu đề
     cayCuaToi.inTrungTu(); // In cây: 0 1 2 3 7 8 10 14 20
     
-    return 0; // Kết thúc chương trình
+    return 0; 
 }
